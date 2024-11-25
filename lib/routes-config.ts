@@ -25,7 +25,17 @@ export const ROUTES: EachRoute[] = [
       },
     ],
   },
-  { title: "Test", href: "/test" },
+  {
+    title: "Basics",
+    href: "/basics",
+    noLink: true,
+    items: [
+      { title: "Routing", href: "/routing" },
+      { title: "Views", href: "/views" },
+      { title: "Controllers", href: "/controllers" },
+      { title: "Exceptions", href: "/exceptions" },
+    ]
+  },
 ];
 
 type Page = { title: string; href: string };
