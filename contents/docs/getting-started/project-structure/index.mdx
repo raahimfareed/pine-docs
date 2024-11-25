@@ -3,93 +3,123 @@ title: Project Structure
 description: This section provides an overview of Project Structure.
 ---
 
-## Project Structure Overview
+## Overview
 
-### app
+Pine uses `src` folder for project source code. Files outside of this folder are mostly configuration and setup files which are not required to be edited but can be as per needs.
 
-This folder contains the main application code for Next.js, managing layouts, routing, and specific content pages. It is organized to support both the `docs` and `blog` sections, with dedicated pages and layouts for each section.
-
-```
-app                         // Main Next.js application folder
-├── page.tsx                // Hero page - the entry point of the app showcasing key content
-├── layout.tsx              // Main layout file, applies global navigation and footer
-├── blog
-│   ├── page.tsx            // Blog list page, displaying all blog posts with titles, dates, and excerpts
-│   └── [slug]
-│       └── page.tsx        // Dynamic blog post page for viewing individual posts with rich content
-└── docs
-    ├── layout.tsx          // Documentation layout with sidebar, providing easy navigation across doc pages
-    └── [[...slug]]         // Catch-all route to handle nested documentation pages, allowing flexible doc structure
-```
-
-### components
-
-This folder contains all reusable components used throughout the project. It’s structured to categorize components, making it easy to locate and manage UI elements, Markdown customizations, and navigation.
-
-```
-components                    // Reusable components
-├── ui                        // ShadCN components, includes standardized UI elements like buttons, forms, and modals
-├── markdown                  // Custom Markdown components for rendering rich Markdown content
-│   ├── CodeBlock.tsx         // Component for rendering syntax-highlighted code blocks
-│   ├── Image.tsx             // Component for handling responsive images in Markdown
-│   └── Table.tsx             // Component to render tables with consistent styling
-└── navbar.tsx                // Main navigation component for the site header, managing links and responsive behavior
+```plaintext
+├── composer.json
+├── .env.example
+├── .gitignore
+├── .htaccess
+├── index.php
+├── LICENSE
+├── package.json
+├── pine
+├── public\
+├── README.md
+├── src
+│   ├── App\
+│   ├── config\
+│   ├── Controllers\
+│   ├── Exceptions\
+│   ├── resources\
+│   ├── routes.php
+│   └── views\
+└── vite.config.js
 ```
 
-### styles
+## Project Root
 
-This folder contains global and component-specific CSS files, allowing for project-wide styling consistency and customizations.
+The project root has all the config files that you may find in most projects.
 
+### package.json
+
+This file contains all the information about the JavaScript side of this application, from installed packages to how to run the application.
+
+### composer.json
+
+Like package.json, this file contains all the information related to dependencies and packages on the PHP side.
+
+### .env.example
+
+This file contains all the dotenv variables of the application.
+
+<Note title="Info"> 
+The database variables are useless out of the box as no ORM is being used by Pine at the moment but they can be used if database connection and the likes are manually developed using for example MySqli or PDO.
+</Note>
+
+### .htaccess
+
+An `.htaccess` file (short for "hypertext access") is a configuration file used by the Apache HTTP Server to control server settings on a per-directory basis. It enables developers and website administrators to make configuration changes without directly modifying the server's main configuration file.
+
+## index.php
+
+This file is basically the starting point of Pine. It includes all the files including configuration files and autoloaders and loads the routes.
+
+## pine
+
+This is a helper file which helps the user in scaffolding code.
+
+## App
+
+`src/App` directory encapsulates Pine's internal code. It can be edited if needed. It has the following files
+
+```plaintext
+├── Controller.php
+├── ErrorHandler.php
+├── LeafTemplateEngine.php
+├── LeafTemplateLexer.php
+├── LeafTemplateParser.php
+├── RequestBody.php
+├── Request.php
+├── Response.php
+├── Route.php
+├── Util.php
+└── View.php
 ```
-styles                        // CSS files
-├── globals.css               // Global CSS file, includes Tailwind base, utilities, and custom global styles
-├── syntax.css                // Syntax highlighting styles, providing consistent code block appearance across the site
-└── overrides.css             // Additional custom styles that override specific component or plugin defaults
+
+These files are what makes Pine possible. They can be tinkered and changed as per the needs but it is important to tread with caution as a minor wrong change can end up causing your project to crash.
+
+## config
+
+`src/config` directory contains all the internal configuration such as setting up an exception handler and making sure .env is being read.
+
+## Controllers
+
+`src/Controllers` directory has all the controllers in it as the name suggests. All controllers you will create will be placed in this directory. We use `PascalCase` for naming controllers. For example, if you create a controller for users, it will be named `UserController`. Of course, this is not a hard and fast rule and you are free to use which ever naming convention you prefer. Although, as a general rule, we would advise to use a consistent convention, whichever you may choose. This is to avoid any kind of confusion and have a clean code throughout.
+
+## Exceptions
+
+`src/Exceptions` directory has all the exceptions in it as the name suggests. All exceptions you will create will be placed in this directory. We use `PascalCase` for naming exceptions. For example, if you create an exception for authorization, it will can be named `UserNotAuthorizedException`.
+
+## resources
+
+`src/resources` directory contains all CSS and JS files. Vite uses the files in this directory and builds them into `public` folder.
+
+It has the following Structure
+
+```plaintext
+├── css
+│   └── index.css
+└── js
+    └── index.js
 ```
 
-### contents
+These files come with default code which you can remove for a fresh start.
 
-This folder stores all Markdown content for the documentation and blog sections, with clear organization by content type. Each Markdown file represents a single piece of content, with frontmatter used for metadata.
+## views
 
-```
-contents                      // Markdown content for blogs and documentation
-├── docs                      // Documentation content, structured to support nested sections and pages
-│   ├── getting-started.md    // Introductory guide for new users
-│   ├── api-reference.md      // API documentation with detailed endpoint descriptions
-│   └── tutorials             // Subfolder for tutorial-style content
-│       └── tutorial-1.md     // Step-by-step tutorial on a specific topic
-└── blogs                     // Blog content, organized by post
-    ├── intro-to-project.md   // Blog post introducing the project and its goals
-    └── dev-updates.md        // Post discussing recent development updates and new features
-```
+`src/views` directory contains all leaf files. Leaf is the HTML Template that Pine uses. This directory has an `errors` subdirectory which contains pages for errors you may want to show the user.
 
-### public
-
-This folder holds all static assets, such as images, videos, fonts, and icons. These files are directly accessible via URL, so it’s important to avoid sensitive or private content here.
-
-```
-public                        // Publicly accessible assets
-├── images                    // Image assets, used across various parts of the app
-│   ├── logo.png              // Project logo for branding
-│   └── banner.jpg            // Banner image for the hero section
-├── icons                     // SVG icons for the app
-└── videos                    // Video files for media content, if any
+```plaintext
+├── controller.leaf.html
+├── errors
+│   ├── 403.leaf.html
+│   ├── 404.leaf.html
+│   ├── 500.leaf.html
+│   └── debug.leaf.html
+└── index.leaf.html
 ```
 
-### lib
-
-This folder contains helper functions and utilities used across the application, such as Markdown parsing and routing logic. These utilities help keep the codebase clean and organized by separating out common functionality.
-
-```
-lib                           // Utility or helper functions
-├── markdown.ts               // Markdown parsing logic, converts Markdown to HTML and adds custom components
-├── routes-config.ts          // Routing configuration for docs, maps URLs to content files for dynamic routing
-└── utils.tsx                 // General utility functions used across the app, such as data formatting and validation helpers
-```
-
-### Additional
-
-- **`package.json`**: Contains metadata about the project, dependencies, and scripts for building and running the application.
-- **`tailwind.config.ts`**: Configures Tailwind CSS, allowing customization of theme colors, fonts, and responsive breakpoints specific to this project. 
-
-This structure organizes your project in a way that supports scalability and maintainability, making it easier to navigate and work on different sections of the application.
+The errors directory is not optional and we recommend keeping it in to avoid `ViewNotFound` exception if incase the user does encounter an error.
