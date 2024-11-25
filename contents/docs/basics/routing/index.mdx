@@ -3,7 +3,72 @@ title: Routing
 description: Get started with routing in pine
 ---
 
-Currently this page hasn't been fully developed yet!
+## Creating A Route
+
+The most basic route in Pine you can create uses a URI and a Callback.
+For this example, we're gonna use a GET route.
+
+```php
+use Pine\App\Route;
+
+Route::get('/hi', function () {
+    return "Hello Everyone!";
+});
+
+// Can also use one-liners
+Route::get('/hi', fn () => "Hello Everyone");
+```
+
+## Using Views
+
+You can use view files to be rendered at your routes. For a `hello-world.leaf.html`, we can do something like this
+
+```php
+use Pine\App\View;
+
+Route::get("/hello-world", function () {
+    return new View("hello-world");
+});
+```
+
+## Using Controllers
+
+You can make use of controllers and their methods for your routes as well
+
+```php
+// src/Controllers/SampleController.php
+namespace Pine\Controllers;
+
+use Pine\App\Controller;
+use Pine\App\View;
+
+class SampleController extends Controller
+{
+    public function index()
+    {
+        return new View("controller");
+    }
+}
+
+// src/routes.php
+use Pine\Controllers\SampleController;
+
+Route::get("/controller", [SampleController::class, "index"]);
+```
+
+In this example, the first parameter is the uri and the second parameter is an array with the first element being the controller and the second parameter being the name of the function you want to call on that route.
+
+## Route Methods
+
+The following methods are supported by Pine
+
+```php
+Route::get($uri, $callback);
+Route::post($uri, $callback);
+Route::put($uri, $callback);
+Route::patch($uri, $callback);
+Route::delete($uri, $callback);
+```
 
 <Note title="Contribute"> 
 Interested in helping with the docs? Check out our [Documentation Repository](https://github.com/raahimfareed/pine) to get started! From feature suggestions to bug fixes, all contributions are welcome.
