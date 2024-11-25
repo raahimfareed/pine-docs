@@ -9,17 +9,17 @@ export function Footer() {
         <div className="flex items-center gap-3">
           <CommandIcon className="sm:block hidden w-5 h-5 text-muted-foreground" />
           <p className="text-center">
-            Build by{" "}
+            Built by{" "}
             <Link
               className="px-1 underline underline-offset-2"
-              href="https://github.com/nisabmohd"
+              href="https://github.com/raahimfareed"
             >
-              nisabmohd
+              raahimfareed
             </Link>
             . The source code is available on{" "}
             <Link
               className="px-1 underline underline-offset-2"
-              href="https://github.com/nisabmohd/Aria-Docs"
+              href="https://github.com/raahimfareed/pine"
             >
               GitHub
             </Link>
@@ -28,7 +28,7 @@ export function Footer() {
         </div>
 
         <div className="gap-4 items-center hidden md:flex">
-          <FooterButtons />
+        {/*<FooterButtons />*/}
         </div>
       </div>
     </footer>

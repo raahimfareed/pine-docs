@@ -1,18 +1,22 @@
 ---
 title: Installation
-description: Installation guide for our application.
+description: Installation guide for Pine.
 ---
 
-Setting up AriaDocs is straightforward, with options to clone the repository or use the convenient `npx` command. AriaDocs requires [Node.js](https://nodejs.org/) version 18 or higher for optimal performance.
+To use Pine, your system needs to have at least [PHP](https://php.net) and [Composer](https://getcomposer.org). If you intend to use vite , your system also needs to have [Node](https://nodejs.org/en). Personally, we use [pnpm](https://pnpm.io/) for installing JavaScript packages and running vite but you can use any other package manager of your choice.
+
+<Note title="Info">
+Once the first release of Pine is published, composer will also be usable for installation and setup.
+</Note>
 
 ## Clone Repository
-To get started, you can clone the AriaDocs repository directly from GitHub. 
+To get started, you can clone the Pine repository directly from GitHub. 
 <Stepper>
-  <StepperItem title="Step 1: Clone the AriaDocs Repository">
-    Begin by cloning the AriaDocs repository from GitHub:
+  <StepperItem title="Step 1: Clone the Pine Repository">
+    Begin by cloning the Pine repository from GitHub:
 
     ```plaintext
-    git clone https://github.com/nisabmohd/Aria-Docs.git
+    git clone https://github.com/raahimfareed/pine.git
     ```
   </StepperItem>
 
@@ -20,53 +24,35 @@ To get started, you can clone the AriaDocs repository directly from GitHub.
     After cloning, navigate into the project directory to start setting up:
 
     ```plaintext
-    cd Aria-Docs
+    cd pine
     ```
   </StepperItem>
 
   <StepperItem title="Step 3: Install Required Dependencies">
-    Install all necessary project dependencies with npm:
-
-    <Note title="Remember">
-      To support React 19, package maintainers will need to test and update their packages to include React 19 as a peer dependency. This is already in progress.
-    </Note>
+    Install all necessary project dependencies with composer:
 
     ```plaintext
-    npm install
+    composer install
+    ```
+    
+    Optionally install all necessary node packages with pnpm or the package manager of your choice:
+    ```plaintext
+    pnpm install
     ```
   </StepperItem>
 
   <StepperItem title="Step 4: Launch the Development Server">
-    Finally, start the development server to view the project locally:
+    Finally, we will use php itself to launch the development server:
 
     ```plaintext
-    npm run dev
+    php -S localhost:8000
+    ```
+
+    Optionally, to make use of vite:
+    ```
+    pnpm dev
     ```
   </StepperItem>
 </Stepper>
 
-## Quick Setup with npx
-
-For a faster setup, use the `npx` command to create a new AriaDocs project in one step:
-
-```plaintext
-npx create-aria-doc <project-directory>
-```
-
-**Command Output:**
-
-```plaintext
-Creating a new AriaDocs project in /path/to/your/project from the master branch...
-Cloning Master (Full Documentation)...
-AriaDocs project successfully created in /path/to/your/project!
-
-Next steps:
-1. Navigate to your project directory:
-   cd <project-directory>
-2. Install dependencies:
-   npm install
-3. Start the development server:
-   npm run dev
-```
-
-With this setup, you’ll have a ready-to-use AriaDocs instance to start building your documentation.
+Your project is ready to go now!

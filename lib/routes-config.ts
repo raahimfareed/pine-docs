@@ -42,6 +42,7 @@ export const ROUTES: EachRoute[] = [
       },
     ],
   },
+  { title: "Test", href: "/test" },
 ];
 
 type Page = { title: string; href: string };

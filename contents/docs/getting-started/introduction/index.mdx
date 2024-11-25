@@ -1,58 +1,34 @@
 ---
 title: Introduction
-description: This section provides an overview of AriaDocs.
+description: This section provides an overview of Pine
 ---
 
-Welcome to **AriaDocs**! This template provides a modern, flexible, and user-friendly foundation for creating engaging documentation. Whether you're building a knowledge base, project docs, or a personal blog, AriaDocs makes it easy to set up and scale.
+Welcome to **Pine**! It is a minimal micro framework made in PHP. It provides a starting point to quickly scaffold web applications without much overhead. It's perfect for small scale websites and webapps without any extra overhead.
 
-
-##  Open Source Philosophy
-
-AriaDocs is proudly **open-source**! 🎉 We believe in creating an accessible, collaborative platform that thrives on community contributions.
+Pine comes with the necessities to get started but doesn't tell you how to do it. It's easily extendable and thus other libraries can easily be used with it.
 
 <Note title="Contribute"> 
- Interested in helping us improve? Check out our [GitHub repository](https://github.com/your-repo) to get started! From feature suggestions to bug fixes, all contributions are welcome.
+Interested in helping us improve? Check out our [GitHub repository](https://github.com/raahimfareed/pine) to get started! From feature suggestions to bug fixes, all contributions are welcome.
 </Note>
 
-## Project Overview
+## Why Pine?
 
-**AriaDocs** is more than just a documentation template. It's a **complete toolkit** designed for modern web development. Key features include:
+There are many other frameworks in PHP such as [Laravel](https://laravel.com) which may be a better choice for you if you want to create large scale and enterprise applications or need a batteries included framework.
 
-- **Markdown & MDX Support:** Easily write documentation in Markdown, with the option to include interactive components via MDX.
-- **Customizable Themes:** Designed with a minimalist ShadCN-inspired theme that’s easy to style.
-- **SEO-Optimized:** Each page is SEO-ready, ensuring search engines can find and rank your content.
-- **Interactive Code Blocks:** Beautifully styled, language-specific code blocks for an enhanced reading experience.
+Pine is a lightweight framework which provides you with a starting point with a Model-View-Controller (MVC) approach, which of course, is completely optional to use. The developer has the complete absolute control of the code with no behind the scenes magic. Pine is the perfect choice for fast prototyping that requires backend functionality as well.
 
 ### Key Features
 
 | **Feature**                   | **Description**                                          |
 |-------------------------------|----------------------------------------------------------|
-| MDX Support                   | Write interactive documentation with MDX.                |
-| Nested Pages                  | Organize content in a nested, hierarchical structure.    |
-| Blog Section                  | Include a dedicated blog section.                        |
-| Pagination                    | Split content across multiple pages.                     |
-| Syntax Highlighting           | Highlight code for better readability.                   |
-| Code Line Highlighting & Titles | Highlight specific lines with descriptive titles.      |
-| Interactive Code Blocks       | Language-specific and interactive code display.          |
-| Custom Markdown Components             | Embed custom, reusable components in your docs.          |
-| Static Site Generation        | Generate a static, high-performance site.                |
+| Model View Controller         | Uses MVC pattern which is straightforward                |
+| Leaf Templates                | HTML Templates with a simple syntax                      |
 | SEO-Optimized                 | Structured for optimal search engine indexing.           |
 
+## Deploying
 
-## Technology & Libraries
+As a PHP framework, it can be deployed anywhere that supports PHP. A common and cheap way to host small and hobby projects is shared hosting.
 
-AriaDocs leverages cutting-edge technologies to ensure performance and flexibility:
-
-- **Next.js 14** - The powerful React framework optimized for production.
-- **Tailwind CSS** - Utility-first styling for quick, clean designs.
-- **Shadcn-UI** - Elegant, accessible components for a polished look.
-- **next-mdx-remote** - Enables MDX support for dynamic, interactive Markdown content.
-
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
-
-You can deploy your project by clicking [Deploy with Vercel](https://vercel.com/new/clone?repository-url=https://github.com/nisabmohd/Aria-Docs)
+<Note title="Info"> 
+First party docker support is in development at the moment, until then if docker is required, it will manually need to be integrated.
+</Note>
