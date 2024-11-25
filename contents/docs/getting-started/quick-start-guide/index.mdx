@@ -1,80 +1,88 @@
 ---
 title: Quick Start Guide
-description: This section provides an overview of Quick Start Guide.
+description: This page will help you get up and running with your application without any hassle.
 ---
 
-Follow these simple instructions to set up your project efficiently and begin creating content without delay!:
+## Another Page
 
-## Documentation
+Let's add a new page in our application
 
-1. **Configure Routing**
-   - Open the `@lib/route-config.ts` file and add your routing pages:
-     ```typescript
-     export const ROUTES: EachRoute[] = [
-         // Add new route below
-         {
-             title: "Fundamentals",
-             href: "/fundamentals",
-             noLink: true, // Set to true to prevent routing
-             items: [
-                 // All the sub-sections under `fundamentals`
-                 { title: "HTTP Server", href: "/http-server" },
-             ],
-         },
-     ];
-     ```
+### Routing
 
-2. **Create Content Structure**
-   - Navigate to the `@content/docs` directory and create a folder named `fundamentals`, as defined in the `route-config` file. Within this folder, create a subfolder named `http-server`, and inside that, create an `index.mdx` file that will render when you navigate to `/fundamentals/http-server`:
-     ```plaintext
-     root
-     ├── content/docs
-     │   └── fundamentals
-     │       └── http-server
-     │           └── index.mdx
-     ```
+Pine handles all the routing in `src/routes.php` file. At first glance, your routes file should have the following contents
 
-3. **Write Your Markdown Content**
-   - Start writing your markdown content inside the `index.mdx` file. Be sure to include frontmatter at the beginning of the file, which is used for the page title and description:
-     ```markdown showLineNumbers {1-4}
-     --- 
-     title: HTTP Server
-     description: This section is about HTTP Server.
-     ---
+```php
+<?php
+use Pine\App\Request;
+use Pine\App\Route;
+use Pine\App\View;
+use Pine\Controllers\SampleController;
 
-     <!-- Here goes your markdown content -->
-     ```
+Route::get("/", fn () => 
+    new View("index", [
+        "title" => "Welcome to Pine!", 
+        "date" => date("Y-m-d H:i:s", time())
+        ])
+    );
+Route::get("/controller", [SampleController::class, "index"]);
+```
 
-4. **Run Your Application**
-   - Ensure your application is running. Navigate to `http://localhost:3000/docs/fundamentals/http-server` to view your content. You should also see it in the left panel, allowing you to navigate to other pages.
+Our application uses `Route` for creating routes. It supports all the basic routing methods (GET, POST, PATCH, PUT, DELETE).
 
+Add the following line at the end of `src/routes.php`
 
-## Blogs
+```php
+Route::get("/hello-world", function () {
+    return new View("hello-world");
+});
+```
 
-To get started with blogs, follow these steps:
+Now that we have a route, if you try to go to `/hello-world`, you'll be greeted with a rather verbose error. Don't panic, that's normal. It's because we haven't created a view named `hello-world` yet.
 
-- Navigate to the `@content/blogs` directory and create a file with a unique name prefixed with `.mdx`, then start writing the markdown content inside.
+### Views
 
-- Make sure to add the following frontmatter to format data for the blogs properly:
-  ```markdown
-  ---
-  title: "Building a Recursive File System with React: A Deep Dive"
-  description: "Explore how to create a recursive file system in React. This blog post provides a comprehensive guide on building a file system where folders and files can be nested, added, renamed, and deleted."
-  date: 02-09-2024
-  authors:
-    - avatar: "https://ui.shadcn.com/avatars/02.png"
-      handle: nisabmohd
-      username: Nisab Mohd
-      handleUrl: "https://github.com/nisabmohd"
-  cover: "https://img.freepik.com/premium-vector/many-monsters-various-colors-doodle-come-bless-birthday-happy_577083-84.jpg?w=826"
-  ---
-  <!-- Your blog markdown content -->
-  ```
+Before we create a view file, let's understand what they are.
 
-- Navigate to your local development server at `http://localhost:3000/blog`, where you will see your blog listed and sorted based on date. You can navigate to any blog to read it.
+Views are essentially HTML files with some additional functionality. All views can be found in `src/views` directory and must be appended by `leaf.html` extension. Let's create our first view.
 
+Create a new file in `src/views` directory with the following name `hello-world.leaf.html` with the following contents:
 
-## Explore Further
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hello, World</title>
+</head>
+<body>
+    <h1>Hello, World!</h1>
+    <p>My very first view in Pine</p>
+</body>
+</html>
+```
 
-This section serves as your starting point for exploring the application. By following the steps above, you can quickly and easily set up your content. For more customization and control, please refer to the following pages.
+After this, refresh your route and your page should render properly.
 
+Now, you may be wondering, the page looks really ugly, and you're right, it's due to the fact that no css is being used.
+
+### Using CSS and JS
+
+Pine serves `public/style.css` and `public/main.js` files for css and js respectively. In order to use these, all you need to do is add `@js` and `@css` to import those files into your page.
+
+Your page should now look like this
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hello, World</title>
+    @css
+</head>
+<body>
+    <h1>Hello, World!</h1>
+    <p>My very first view in Pine</p>
+
+    @js
+</body>
+</html>
+```
+
+If you are using Vite, you will need to edit src/resources/js/index.js and src/resources/css/index.css as vite will automatically bundle js and css for you, you will still need @css and @js to add it into your html.
