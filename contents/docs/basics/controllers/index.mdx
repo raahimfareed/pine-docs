@@ -3,7 +3,64 @@ title: Controllers
 description: Get started with controllers in pine
 ---
 
-Currently this page hasn't been fully developed yet!
+## Creating A Controller
+
+A basic controller in Pine looks something like this
+
+```php
+namespace Pine\Controllers;
+
+use Pine\App\Controller;
+use Pine\App\View;
+
+class SampleController extends Controller
+{
+    public function index()
+    {
+        return new View("controller");
+    }
+}
+```
+
+The controller can have any amount of functions, it's just a PHP class which 
+extends a base Controller class from Pine.
+
+## Scaffolding
+
+Pine offers a command line (CLI) utility which can scaffold a controller for an 
+easier development time.
+
+In order to scaffold a class, run the following command
+
+```plaintext
+./pine --make controller
+```
+
+After this, you'll be prompted to enter a name for the controller. Your output 
+will look something similar to this.
+
+```plaintext
+$ ./pine --make controller
+Enter controller name: UserController
+Controller file './src/Controllers/UserController.php' created successfully.
+```
+
+And finally, `UserController.php` (Or whichever name you gave it) will 
+look like this
+
+```php
+namespace Pine\Controllers;
+
+use Pine\App\Controller;
+use Pine\App\Request;
+
+class UserController extends Controller
+{
+    public function index(Request $request) {
+        
+    }
+};
+```
 
 <Note title="Contribute"> 
 Interested in helping with the docs? Check out our [Documentation Repository](https://github.com/raahimfareed/pine) to get started! From feature suggestions to bug fixes, all contributions are welcome.
