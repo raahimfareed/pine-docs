@@ -32,11 +32,11 @@ $body = $request->body;
 
 ## Route Parameters
 
-To access the route parameters, `Request` object provides a `parameters` property. It is an 
+To access the route parameters, `Request` object provides a `params` property. It is an 
 associative array.
 
 ```php
-$parameters = $request->parameters;
+$parameters = $request->params;
 ```
 
 It uses `$_REQUEST` in the back to get the body among some other methods to 
