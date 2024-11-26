@@ -56,3 +56,41 @@ the function, Pine automatically handles the rest.
 ```php
 return $jsonResponse;
 ```
+
+## Headers
+
+It's a common practice to attach headers for certain use cases, such as 
+attaching `Content-Type` to your response to let the client know your response 
+content type.
+
+### Attaching Headers
+
+The `Response` object provides a `headers` method for setting response headers.
+An array is passed to it which is attached with the response.
+
+```php
+$response->headers($array);
+$response->headers(["Content-Type" => "application/json"]);
+$response->headers(["X-Custom-Header" => "Custom value of header"]);
+```
+
+You can also attach multiple headers in a single go
+
+```php
+$response->headers([
+    "Content-Type" => "application/json",
+    "X-Custom-Header" => "Custom value of header"
+]);
+```
+
+### Viewing Response Headers
+
+The `headers` function returns back the headers that are attached with the 
+response.
+
+```php
+$headers = $response->headers(); // []
+$headers = $response->headers(["Content-Type" => "application/json"]); // ["Content-Type" => "application/json"]
+```
+
+
