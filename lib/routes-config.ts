@@ -34,6 +34,7 @@ export const ROUTES: EachRoute[] = [
       { title: "Views", href: "/views" },
       { title: "Controllers", href: "/controllers" },
       { title: "Exceptions", href: "/exceptions" },
+      { title: "Request", href: "/request" },
     ]
   },
   {
