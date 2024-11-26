@@ -70,6 +70,34 @@ Route::patch($uri, $callback);
 Route::delete($uri, $callback);
 ```
 
+## Route Parameters
+
+Pine has limited support for route parameters as of now.
+
+To create a route parameter, append the path with a color `:` for example `/users/:id`.
+
+```php
+Route::get('/users/:id', $callback);
+```
+
+To access it in the request, `Request` object comes with a `params` property which is an array.
+
+```php
+Route::get("/users/:id", function (Request $request) {
+    $id = $request->params['id'];
+});
+```
+
+Nested routing supports parameters as well
+
+```php
+Route::get("/users/:user/posts/:post", function (Request $request) {
+    $userId = $request->params['user'];
+    $postId = $request->params['post'];
+});
+```
+
+
 <Note title="Contribute"> 
 Interested in helping with the docs? Check out our [Documentation Repository](https://github.com/raahimfareed/pine) to get started! From feature suggestions to bug fixes, all contributions are welcome.
 </Note>
