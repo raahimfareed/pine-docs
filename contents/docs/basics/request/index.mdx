@@ -1,0 +1,69 @@
+---
+title: Request
+description: An overview of the Request object in Pine, detailing its structure and usage in HTTP Requests.
+---
+
+## Overview
+
+The `Request` object in Pine provides a simple and intuitive way to handle HTTP
+requests. It allows to view all parameters of a request including headers, body,
+uri and method.
+
+## Request Object
+Every function which is used in a request has it's first parameter as a default 
+Request object.
+Creating a response is straightforward.
+```php
+use Pine\App\Request;
+
+Route::get("/request", function (Request $request) {
+
+});
+```
+
+## Body
+
+To access the request body, `Request` object provides a `body` property. It is an 
+associative array.
+
+```php
+$body = $request->body;
+```
+
+## Route Parameters
+
+To access the route parameters, `Request` object provides a `parameters` property. It is an 
+associative array.
+
+```php
+$parameters = $request->parameters;
+```
+
+It uses `$_REQUEST` in the back to get the body among some other methods to 
+retrieve any other data provided.
+
+## Headers
+
+`headers` property is provided to get all the headers in the request. It is an 
+associative array.
+
+```php
+$headers = $request->headers;
+```
+
+## Uri
+
+`uri` property is provided to get the URI of the request
+
+```php
+$uri = $request->uri;
+```
+
+## Method
+
+`method` property is provided to get the method of the request
+
+```php
+$method = $request->method;
+```
+
