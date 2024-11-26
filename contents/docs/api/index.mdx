@@ -1,0 +1,18 @@
+---
+title: API Handling
+description: This page gives an overview about API handling
+---
+
+## Overview
+
+API Handling is a crucial aspect a framework as many applications rely on some 
+sort of API to communicate with the server. The most basic form of API is a 
+RESTful API.
+
+Pine provides a robust routing system and the necessary classes such as `Request`
+and `Response` for API Handling.
+
+Pine also automatically handles exceptions based on API responses. All exceptions 
+are sent in JSON format if `Accept: application/json` header is present in the 
+request.
+

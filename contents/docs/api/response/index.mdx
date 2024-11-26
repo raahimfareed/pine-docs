@@ -1,0 +1,58 @@
+---
+title: Response
+description: An overview of the Response object in Pine, detailing its structure and usage for creating and managing HTTP responses.
+---
+
+## Overview
+
+The `Response` object in Pine provides a simple and intuitive way to handle HTTP
+responses. It allows you to set status codes and body as well as send back the 
+response in json format.
+
+## Creating Response
+
+Creating a response is straightforward.
+```php
+use Pine\App\Response;
+
+$response = new Response($status, $body);
+```
+
+The constructor has 2 default arguments, `status` and `body`. By default they 
+are `200` and `[]` respectively.
+
+You can change them according to your own personal preference
+
+```php
+$response = new Response(status: 200);
+$response = new Response(body: [
+    'message' => 'This is a response'
+]);
+```
+
+## Json
+
+It's essential for a response to be in json for most APIs. Pine's Response comes 
+with a built in `json` method which encodes the response in json.
+
+```php
+$response = $response->json();
+```
+
+Once the response is converted into json, it's body is converted into json and no
+longer a PHP array therefore it's advised to convert it to json at the end of your 
+function when no other working will be done on the response object.
+
+If access to a PHP array and a json body both are required, the json response can be
+stored in a new variable
+
+```php
+$jsonResponse = $response->json();
+```
+
+To return back the response, the response object itself can be returned from 
+the function, Pine automatically handles the rest.
+
+```php
+return $jsonResponse;
+```
