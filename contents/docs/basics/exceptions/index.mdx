@@ -3,7 +3,52 @@ title: Exceptions
 description: Get started with exceptions in pine
 ---
 
-Currently this page hasn't been fully developed yet!
+Pine uses it's own custom exception handling. You can create your own exceptions and assign specific views based on the kind of exception that is thrown.
+
+## Creating An Exception
+
+All custom exceptions are stored in `src/Exceptions` directory. One of the exceptions provided to the user is `RouteNotFound` exception. It's contents are
+```php
+namespace Pine\Exceptions;
+
+use Pine\App\Exception;
+
+class RouteNotFound extends Exception
+{
+    public function __construct(string $route)
+    {
+        $message = "Route not found.";
+        if (!empty($route)) {
+            $message .= " Path: {$route}";
+        }
+
+        parent::__construct("errors/404", $message, 404);
+    }
+}
+```
+
+Let's go over what is actually happening here.
+
+The custom exception extends from an `Exception` class provided by Pine.
+
+```php
+class RouteNotFound extends Exception
+```
+
+Specifically, the `RouteNotFound` exception takes the route in its constructor
+```php
+public function __construct(string $route)
+```
+
+A message variable is created which is the message that is passed to the view to be shown to the user
+```php
+$message = "Route not found.";
+```
+
+And finally, the parent constructor is called and the view, the message and the http status code are passed as arguments to it.
+```php
+parent::__construct("errors/404", $message, 404);
+```
 
 <Note title="Contribute"> 
 Interested in helping with the docs? Check out our [Documentation Repository](https://github.com/raahimfareed/pine) to get started! From feature suggestions to bug fixes, all contributions are welcome.
