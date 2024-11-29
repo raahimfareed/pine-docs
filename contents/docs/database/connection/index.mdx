@@ -1,0 +1,61 @@
+---
+title: Database Connection
+description: Connect to the database of your choice
+---
+
+## Configuration
+
+Before we can establish a connection with a database, we first need to configure `.env` file to have our database credentials.
+
+If you don't have a `.env` file. You can duplicate the `.env.example` file.
+
+In Linux, Unix and Powershell terminals you can use `cp` command to make a copy of the file
+
+```sh
+cp .env.example .env
+```
+
+Your .env file should now be created with all the necessary variables
+
+```bash
+DB_DRIVER=mysql
+DB_NAME=pine
+DB_USER=root
+DB_PASS=
+DB_HOST=localhost
+DB_CHARSET=utf8mb4
+
+APP_DEBUG=true
+```
+
+Notice how we have the variables with `DB_` prefix. All of those variables are used to confgure the database.
+<Note title="Important">
+It's important to add sensitive information only in `.env` file as it's added in `.gitignore` so it's not added to source control. This is done so that sensitive information is not accidentally made public such as your database passwords, API tokens, application secrets, etc.
+</Note>
+
+Make sure to change `DB_` variables in `.env` file before continuing. Most databases have a default user called root in local development.
+
+## Supported Databases
+In our provided example env file, the default driver is mysql but you can use any database which has the same structure of URI as mysql databases. Currently supported databases by default are:
+  - MySql
+  - MariaDB
+  - PostgreSQL (pgsql)
+  - Microsoft SQL Server (mssql)
+  - Cockroach DB
+
+It is important to note, for each driver that you wish to use, you must also have it's respective PHP extension enabled as well.
+
+For the listed databases above, following extensions are required respectively
+  - MySql: `pdo_mysql`
+  - MariaDB: `pdo_mysql`
+  - PostgreSQL: `pdo_pgsql`
+  - MSSQL: `pdo_sqlsrv`
+  - CockroachDB: `pdo_pgsql`
+
+Internally, we use the following code
+
+```php
+$dsn = "{$config['driver']}:host={$config['host']};dbname={$config['database']};charset={$config['charset']}";
+```
+
+If you wish to use a separate database, you may want to edit the structure of DSN as per your database requirements. It can be found in `src/App/Database.php`. You may also want to add more connection/database details in config file `src/config/db.php`. Moreover, the base model `src/App/BaseModel.php` can be edited as needed for your database.
