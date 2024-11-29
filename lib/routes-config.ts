@@ -38,6 +38,22 @@ export const ROUTES: EachRoute[] = [
     ]
   },
   {
+    title: "Database",
+    href: "/database",
+    noLink: true,
+    items: [
+      { title: "Connection", href: "/connection" },
+    ]
+  },
+  {
+    title: "Pine ORM",
+    href: "/orm",
+    noLink: true,
+    items: [
+      { title: "Creating Models", href: "/create-model" },
+    ]
+  },
+  {
     title: "API Handling",
     href: "/api",
     items: [
