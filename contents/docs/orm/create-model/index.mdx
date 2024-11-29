@@ -1,0 +1,180 @@
+---
+title: Defining Models
+description: Defining Models for Database
+---
+
+## Model Structure
+
+All models are defined in the `src/Models` directory. Pine comes with a sample `User` model by default, most of your models will have the same outline
+
+```php
+namespace Pine\Models;
+
+use Pine\App\BaseModel;
+
+class User extends BaseModel {
+    public static string $_table = "users";
+    public static string $_primaryKey = "id";
+    public static array $_attributes = [];
+
+    public string $name;
+    public string $email;
+    private string $password;
+
+    public static function initialize() {
+        self::setup()
+            ->addColumn('id', 'INT')->primary('id')->autoIncrement('id')
+            ->addColumn('name', "VARCHAR(255)")->nullable('name', false)
+            ->addColumn('email', "VARCHAR(255)")->nullable('email', false)
+            ->addColumn('password', "VARCHAR(255)")->nullable('password', false);
+    }
+}
+```
+
+Let's go over this model step by step
+
+### BaseModel
+
+All your models must extend the base model as it handles a lot of the working for your models. If you wish to see how the BaseModel works, its location is `src/App/BaseModel.php`.
+
+To extend the model, we can use `extends` keyword while defining the class.
+
+```php
+use Pine\App\BaseModel;
+
+class User extends BaseModel
+```
+
+### Table Name
+
+A public static property of type string called `$_table` should be present in your class. This property will tell the ORM the name of the table in database.
+
+```php
+public static string $_table = "users";
+```
+
+### Properties
+
+You can define as many properties as you like in the model, this part will work just like how normal OOP works, you can choose to define private, protected or public properties and create any methods you like. For the user class we defined name, email and password.
+
+```php
+public string $name;
+public string $email;
+private string $password;
+```
+
+### Initialization
+
+Now, you need to define the properties for the database, these will tell pine what to actually create in the database.
+
+A public static function called `initialize` should be present in your model. From there, you will call `self::setup` function which the `BaseModel` provides to you. You can chain more functions after this function for development ease. For every column, you'll chain the function `addColumn`.
+
+`initialization` will run whenever syncing the model with the database.
+
+## Defining Table Properties
+
+<Note title="Important">
+The property attributes in this section use MySQL/MariaDB syntax. For your respective database, it might change a bit.
+</Note>
+
+### Setup
+
+`setup` method should be called first before anything else
+```php
+self::setup()
+  ->...
+```
+
+After this, some methods can be chained to it to define the table structure and property attributes.
+
+### Adding a Column
+
+`addColumn` can be chained once `setup` is called. It accepts two arguments, the first one is the name of the column and the second one is a string that defines the attributes of that column, in simpler terms, it uses valid SQL.
+
+```php
+self::setup()
+  ->addColumn('id', 'INT')
+  ->addColumn('name', 'VARCHAR(255)')
+  ->addColumn(...);
+```
+
+### Primary Keys
+
+There are two ways to define primary keys, one is using the SQL syntax and `addColumn` method.
+
+In SQL, the keywords that are used to set a primary key are 
+```sql
+PRIMARY KEY
+```
+
+Using the `addColumn`, it can be used as
+
+```php
+->addColumn('id', 'INT PRIMARY KEY')
+```
+
+or you can use the helper function `primary`
+
+```php
+->primary('id')
+```
+
+### Nullable
+
+There are two ways to define a column nullable or not nullable, one is using the SQL syntax and `addColumn` method.
+
+In SQL, the keywords that are used to set null are 
+```sql
+NULL
+
+NOT NULL
+```
+
+Using the `addColumn`, it can be used as
+
+```php
+->addColumn('id', 'INT NOT NULL')
+```
+
+or you can use the helper function `nullable`
+
+```php
+->nullable(true)
+```
+
+### Auto Incrementing
+
+There are two ways to define an auto incrementing column, one is using the SQL syntax and `addColumn` method.
+
+In SQL, the keywords that are used to set auto incrementing are 
+```sql
+AUTO_INCREMENT
+```
+
+Using the `addColumn`, it can be used as
+
+```php
+->addColumn('id', 'INT AUTO_INCREMENT')
+```
+
+or you can use the helper function `autoIncrement`
+
+```php
+->autoIncrement(true)
+```
+
+<Note title="Info">
+More helper functions will be added in future. If you'd like to contribute, you can do so at [Pine's Documentation](https://github.com/raahimfareed/pine)
+</Note>
+
+## Synchronize Database
+
+Once your models are created, you may wonder how to actually show them in the database. That's where synchronizing comes in. Models in pine need to be synced to the database by calling `sync` function. It's a function that's inherited from `BaseModel` class.
+
+First, headover to `src/config/models.php` file. In that file you will already see the user model being synced
+
+```php
+User::sync();
+```
+
+If you create any more models, sync them in this file before proceeding. As of now, changes are not synced to the database but that feature will be coming soon. Until then, if you make changes to model schema and would like to sync those changes to the database, you will need to drop all the tables manually and then rerun the application server.
